@@ -10,6 +10,15 @@ module.exports = {
 			.setDescription('Slowmode duration.'),
 		),
 	/**
+    data: new SlashCommandBuilder()
+    .setName('slowmode')
+    .setDescription('Sets a channels slowmode.')
+    .setDefaultMemberPermissions(PermissionFlagsBits.ManageChannels)
+    .addStringOption(option => option
+            .setName('duration')
+            .setDescription('Slowmode duration.')
+    ),
+    /**
      * @param {ChatInputCommandInteraction} interaction
      */
 	async execute(interaction) {
@@ -34,4 +43,17 @@ module.exports = {
 			interaction.reply({ content: `Slowmode has been set to \`${SlowmodeDuration}\`` });
 		}
 	},
+};
+        if (SlowmodeDuration === 0) {
+            if (!channel.rateLimitPerUser) {
+                return interaction.reply({ content: 'No slowmode set.' });
+            } else {
+                channel.setRateLimitPerUser(0);
+                interaction.reply({ content: 'Slowmode disabled.' });
+            };
+        } else {
+            channel.setRateLimitPerUser(SlowmodeDuration)
+            interaction.reply({ content: `Slowmode has been set to \`${SlowmodeDuration}\`` });
+        };
+    },
 };
