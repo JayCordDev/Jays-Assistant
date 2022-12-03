@@ -1,5 +1,5 @@
 const { ChatInputCommandInteraction, SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } = require('discord.js');
-const { DirectMessage_Embed_Colour, Success_Emoji, Error_Emoji } = require('../../config.json');
+const { EMBED_COLOURS, EMOJIS} = require('../../config');
 const randomstring = require('randomstring');
 const ms = require('ms');
 
@@ -38,17 +38,17 @@ module.exports = {
         const LogChannel = guild.channels.cache.get('946156432057860103');
         const CaseId = randomstring.generate({ length: 18, charset: 'numeric' });
 
-        const CannotMuteEmbed = new EmbedBuilder().setColor("Red").setDescription(`${Error_Emoji} | Unable to mute this user.`)
+        const CannotMuteEmbed = new EmbedBuilder().setColor("Red").setDescription(`${EMOJIS.ERROR} | Unable to mute this user.`)
         if (!TargetMember.moderatable) return interaction.reply({ embeds: [CannotMuteEmbed] });
 
-        const AlreadyMutedEmbed = new EmbedBuilder().setColor("Red").setDescription(`${Error_Emoji} | This user is already muted.`)
+        const AlreadyMutedEmbed = new EmbedBuilder().setColor("Red").setDescription(`${EMOJIS.ERROR} | This user is already muted.`)
         if (TargetMember.isCommunicationDisabled === true) return interaction.reply({ embeds: [AlreadyMutedEmbed] });
 
-        const NotValidEmbed = new EmbedBuilder().setColor("Red").setDescription(`${Error_Emoji} | Input provided is invalid (Duration / Limit Hit).`)
+        const NotValidEmbed = new EmbedBuilder().setColor("Red").setDescription(`${EMOJIS.ERROR} | Input provided is invalid (Duration / Limit Hit).`)
         if (!ms(MuteDuration) || ms(MuteDuration) > ms('28d')) return interaction.reply({ embeds: [NotValidEmbed] });
 
         const DirectEmbed = new EmbedBuilder()
-        .setColor(DirectMessage_Embed_Colour)
+        .setColor(EMBED_COLOURS.WARNING)
         .setAuthor({ name: `${guild.name}`, iconURL: `${guild.iconURL()}` })
         .setTitle(`You have been muted in ${guild.name}`)
         .setFields(
@@ -63,7 +63,7 @@ module.exports = {
         await TargetUser.send({ embeds: [DirectEmbed] }).catch((console.error));
 
         await TargetMember.timeout(ms(MuteDuration)).then(() => {
-            const MuteSuccessEmbed = new EmbedBuilder().setColor('Green').setDescription(`${Success_Emoji} | <@${TargetUser.id}> has been muted | \`${CaseId}\``)
+            const MuteSuccessEmbed = new EmbedBuilder().setColor('Green').setDescription(`${EMOJIS.SUCCESS} | <@${TargetUser.id}> has been muted | \`${CaseId}\``)
             interaction.reply({ embeds: [MuteSuccessEmbed] });
         });
 

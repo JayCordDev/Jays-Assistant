@@ -2,7 +2,7 @@ console.clear();
 
 const { Client, GatewayIntentBits, Collection } = require('discord.js');
 const { readdirSync } = require('fs');
-const { connect } = require('mongoose');
+//const { connect } = require('mongoose');
 require('dotenv/config');
 
 const client = new Client({

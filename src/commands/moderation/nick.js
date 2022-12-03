@@ -1,5 +1,5 @@
 const { ChatInputCommandInteraction, SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } = require('discord.js');
-const { Error_Emoji } = require('../../config.json');
+const { EMOJIS } = require('../../config');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -27,7 +27,7 @@ module.exports = {
         const TargetMember = await guild.members.fetch(TargetUser.id);
         const Nickname = options.getString('nickname');
 
-        const CannotChangeEmbed = new EmbedBuilder().setColor('Red').setDescription(`${Error_Emoji} | Unable to moderate this user.`)
+        const CannotChangeEmbed = new EmbedBuilder().setColor('Red').setDescription(`${EMOJIS.ERROR} | Unable to moderate this user.`)
         if (!TargetMember.moderatable) return interaction.reply({ embeds: [CannotChangeEmbed] });
 
         if (!Nickname) {

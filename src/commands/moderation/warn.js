@@ -1,5 +1,5 @@
 const { ChatInputCommandInteraction, SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } = require('discord.js');
-const { Success_Emoji, Error_Emoji } = require('../../config.json');
+const { EMOJIS } = require('../../config');
 const database = require('../../database/schemas/PunishmentSchema.js');
 const randomstring = require('randomstring');
 
@@ -32,7 +32,7 @@ module.exports = {
         const LogChannel = guild.channels.cache.get('946156432057860103');
         const CaseId = randomstring.generate({ length: 18, charset: 'numeric' });      
         
-        const CannotWarnSelfEmbed = new EmbedBuilder().setColor('Red').setDescription(`${Error_Emoji} | You cannot warn yourself.`)
+        const CannotWarnSelfEmbed = new EmbedBuilder().setColor('Red').setDescription(`${EMOJIS.ERROR} | You cannot warn yourself.`)
         if (TargetUser.id === user.id) return interaction.reply({ embeds: [CannotWarnSelfEmbed] });
 
         const DirectEmbed = new EmbedBuilder()
@@ -78,7 +78,7 @@ module.exports = {
             data.save();
         });
 
-        const WarnSuccessEmbed = new EmbedBuilder().setColor('Green').setDescription(`${Success_Emoji} | <@${TargetUser.id}> has been warned | \`${CaseId}\``)
+        const WarnSuccessEmbed = new EmbedBuilder().setColor('Green').setDescription(`${EMOJIS.SUCCESS} | <@${TargetUser.id}> has been warned | \`${CaseId}\``)
         interaction.reply({ embeds: [WarnSuccessEmbed] });
 
         const LogEmbed = new MessageEmbed()

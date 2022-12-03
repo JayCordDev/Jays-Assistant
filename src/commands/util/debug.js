@@ -1,6 +1,6 @@
 const { ChatInputCommandInteraction, SlashCommandBuilder, Client, EmbedBuilder, PermissionFlagsBits, version, codeBlock } = require('discord.js');
-const { Default_Embed_Colour } = require('../../config.json');
 const ms = require('ms');
+const { EMBED_COLOURS } = require("../../config")
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -16,7 +16,7 @@ module.exports = {
         const uptime = ms(client.uptime);
 
         const DebugEmbed = new EmbedBuilder()
-        .setColor(Default_Embed_Colour)
+        .setColor(EMBED_COLOURS.DEFAULT)
         .setFields(
             {
                 name: '• Ping',

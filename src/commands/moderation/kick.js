@@ -1,5 +1,5 @@
 const { ChatInputCommandInteraction, SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } = require('discord.js');
-const { DirectMessage_Embed_Colour, Success_Emoji, Error_Emoji } = require('../../config.json');
+const { EMBED_COLOURS, EMOJIS } = require('../../config');
 const randomstring = require('randomstring');
 
 module.exports = {
@@ -31,11 +31,11 @@ module.exports = {
         const LogChannel = guild.channels.cache.get('946156432057860103');
         const CaseId = randomstring.generate({ length: 18, charset: 'numeric' });
 
-        const CannotKickEmbed = new EmbedBuilder().setColor("Red").setDescription(`${Error_Emoji} | Unable to kick this user.`)
+        const CannotKickEmbed = new EmbedBuilder().setColor("Red").setDescription(`${EMOJIS.ERROR} | Unable to kick this user.`)
         if (!TargetMember.kickable) return interaction.reply({ embeds: [CannotKickEmbed] });
 
         const DirectEmbed = new EmbedBuilder()
-        .setColor(DirectMessage_Embed_Colour)
+        .setColor(EMBED_COLORS.WARNING)
         .setAuthor({ name: `${guild.name}`, iconURL: `${guild.iconURL()}` })
         .setTitle(`You have been kicked from ${guild.name}`)
         .setFields(
@@ -50,7 +50,7 @@ module.exports = {
         await TargetUser.send({ embeds: [DirectEmbed] }).catch((console.error));
 
         await TargetMember.kick(KickReason).then(() => {
-            const KickSuccessEmbed = new EmbedBuilder().setColor('Green').setDescription(`${Success_Emoji} | <@${TargetUser.id}> has been kicked | \`${CaseId}\``)
+            const KickSuccessEmbed = new EmbedBuilder().setColor(EMBED_COLORS.SUCCESS).setDescription(`${EMOJIS.SUCCESS} | <@${TargetUser.id}> has been kicked | \`${CaseId}\``)
             interaction.reply({ embeds: [KickSuccessEmbed] });
         });
 

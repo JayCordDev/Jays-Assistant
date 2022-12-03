@@ -1,5 +1,5 @@
 const { ChatInputCommandInteraction, SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } = require('discord.js');
-const { Success_Emoji, Error_Emoji } = require('../../config.json');
+const { EMOJIS } = require('../../config');
 const randomstring = require('randomstring');
 
 module.exports = {
@@ -32,13 +32,13 @@ module.exports = {
 
         await guild.bans.fetch().then(async (bans) => {
             if (bans.size === 0) return interaction.reply({ content: 'No bans.', ephemeral: true });
-            const InvalidIDEmbed = new EmbedBuilder('Red').setDescription(`${Error_Emoji} | No ban found with ID \`${TargetID}\``)
+            const InvalidIDEmbed = new EmbedBuilder('Red').setDescription(`${EMOJIS.ERROR} | No ban found with ID \`${TargetID}\``)
 
             let bannedId = bans.find((ban) => ban.user.id === TargetID);
             if (!bannedId) return interaction.reply({ embeds: [InvalidIDEmbed] });
 
             await guild.bans.remove(TargetID, UnbanReason).then(() => {
-                const UnbannedEmbed = new EmbedBuilder().setColor('Green').setDescription(`${Success_Emoji} | <@${TargetID.id}> has been unbanned | \`${CaseId}\``)
+                const UnbannedEmbed = new EmbedBuilder().setColor('Green').setDescription(`${EMOJIS.SUCCESS} | <@${TargetID.id}> has been unbanned | \`${CaseId}\``)
                 interaction.reply({ embeds: [UnbannedEmbed] });
                 
                 const LogEmbed = new EmbedBuilder()
