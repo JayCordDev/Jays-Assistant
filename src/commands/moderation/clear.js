@@ -3,7 +3,7 @@ const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('clear')
-		.setDescription('Clear messages from a channel.')
+		.setDescription('Clears messages from a channel.')
 		.setDefaultMemberPermissions(PermissionFlagsBits.ManageChannels)
 		.addNumberOption(option => option
 			.setName('amount')
