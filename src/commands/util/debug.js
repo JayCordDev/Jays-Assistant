@@ -5,7 +5,7 @@ const { EMBED_COLOURS } = require("../../config")
 module.exports = {
     data: new SlashCommandBuilder()
     .setName('debug')
-    .setDescription('Returns with bot stats.')
+    .setDescription('Returns bot stats.')
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
     /**
      * @param {ChatInputCommandInteraction} interaction
