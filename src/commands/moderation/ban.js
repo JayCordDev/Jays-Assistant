@@ -35,7 +35,7 @@ module.exports = {
         const LogChannel = guild.channels.cache.get('946156432057860103');
         const CaseId = randomstring.generate({ length: 18, charset: 'numeric' });
 
-        const CannotBanEmbed = new EmbedBuilder().setColor("Red").setDescription(`{Error_Emoji} | Unable to ban this user.`)
+        const CannotBanEmbed = new EmbedBuilder().setColor("Red").setDescription(`${EMOJIS.ERROR} | Unable to ban this user.`)
         if (!TargetMember.bannable) return interaction.reply({ embeds: [CannotBanEmbed] });
 
         const DirectEmbed = new EmbedBuilder()
