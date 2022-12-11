@@ -29,7 +29,7 @@ module.exports = {
         const Messages = await channel.messages.fetch();
 
         const Response = new EmbedBuilder()
-        .setColor("0x000000");
+        .setColor('Green');
 
         if(Target){
             let i = 0;
@@ -42,13 +42,13 @@ module.exports = {
             })
             await channel.bulkDelete(filtered, true).then(messages => {
                 Response.setDescription(`${Success_Emoji} Purged ${messages.size} ${messages.size > 1 ? "messages" : "message"} sent by ${Target}.`);
-                interaction.reply({embeds:[Response]});
+                interaction.reply({ embeds: [Response] });
             });
         }
         else{
             await channel.bulkDelete(Amount, true).then(messages => { 
                 Response.setDescription(`${Success_Emoji} Purged ${messages.size} ${messages.size > 1 ? "messages" : "message"}.`);
-                interaction.reply({embeds:[Response]});
+                interaction.reply({ embeds:[Response] });
             })
         }
     },

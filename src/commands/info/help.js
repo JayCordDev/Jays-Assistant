@@ -1,4 +1,4 @@
-const { ChatInputCommandInteraction, SlashCommandBuilder, Client, EmbedBuilder, inlineCode } = require('discord.js');
+const { ChatInputCommandInteraction, SlashCommandBuilder, Client, EmbedBuilder, inlineCode, quote } = require('discord.js');
 const { Default_Embed_Colour } = require('../../config.json');
 
 module.exports = {
@@ -13,7 +13,7 @@ module.exports = {
         const HelpEmbed = new EmbedBuilder()
         .setColor(Default_Embed_Colour)
         .setTitle('Help')
-        .setDescription(`${client.user.user} is a private moderation and utility bot for JayCord, currently managed and maintaned by the lovely development team!`)
+        .setDescription(`${client.user.username} is a private moderation and utility bot for JayCord, currently managed and maintaned by the lovely development team!`)
         .setFields(
             {
                 name: '• Info',
