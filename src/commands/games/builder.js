@@ -102,7 +102,7 @@ class Game {
         const position = parseInt(interaction.customId.charAt(interaction.customId.length - 1));
 
         if(!this.isMoveValid(position)) {
-            await interaction.reply({ content: "Your move is invalid! This cell is already occupied. Try with another move.", ephemeral: true });
+            await interaction.reply({ content: 'Your move is invalid! This cell is already occupied. Try with another move.', ephemeral: true });
             return;
         }
 
@@ -134,7 +134,7 @@ class Game {
         // Check if the winner has been declared.
         if(this._winner != null) {
             this._embed.setDescription(`${this._currentPlayer.user} wins! 🎉`);
-            await interaction.update({ embeds: [this._embed], content: "", components: [this._row1, this._row2, this._row3] });
+            await interaction.update({ embeds: [this._embed], content: "", });
             return;
         }
 
@@ -142,7 +142,7 @@ class Game {
         this._currentPlayer = this.nextPlayer(this._currentPlayer);
 
         this._embed.setDescription(`${this._currentPlayer.sign} ${this._currentPlayer.user} Your turn!`);
-        await interaction.update({ embeds: [this._embed], content: "", components: [this._row1, this._row2, this._row3] });
+        await interaction.update({ embeds: [this._embed], content: '', components: [this._row1, this._row2, this._row3] });
     }
 
     async run() {
