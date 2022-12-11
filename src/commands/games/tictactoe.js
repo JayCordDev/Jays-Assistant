@@ -6,9 +6,9 @@ module.exports = {
     .setName('tictactoe')
     .setDescription('Starts a new tictactoe game.')
     .addUserOption(option => option
-        .setName('user')
-        .setDescription('The user to play with.')
-        .setRequired(true)
+            .setName('user')
+            .setDescription('The user to play with.')
+            .setRequired(true)
     ),
 
     /**

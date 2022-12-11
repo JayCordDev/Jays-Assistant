@@ -8,11 +8,6 @@ module.exports = {
      */
     async execute(client) {
         console.log('[Bot Status]: Online');
-        client.user.setPresence({
-            activities: [
-                { name: 'JayCord', type: ActivityType.Watching}
-            ],
-            status: 'dnd'
-        });
+        client.user.setActivity( { name: 'JayCord', type: ActivityType.Watching } );
     },
 };

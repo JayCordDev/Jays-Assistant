@@ -1,4 +1,4 @@
-const { EmbedBuilder, Events, channelMention } = require('discord.js');
+const { EmbedBuilder, Events, channelMention, roleMention, userMention } = require('discord.js');
 const { Default_Embed_Colour } = require('../../config.json');
 
 module.exports = (client) => {
@@ -13,6 +13,6 @@ module.exports = (client) => {
         .setThumbnail(`${member.user.displayAvatarURL()}`)
         .setDescription(`Welcome to the server, make sure to read ${channelMention('929387535434674207')} and go get some ${channelMention('929677586236313630')} enjoy your stay!\n\nYou are member **${member.guild.memberCount}**`)
 
-        WelcomeChannel.send({ embeds: [WelcomeEmbed] });
+        WelcomeChannel.send({ content: `${userMention(member.user.id)} | ${roleMention('959451229501677649')}`, embeds: [WelcomeEmbed] });
     });
 };
