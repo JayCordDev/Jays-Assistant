@@ -29,7 +29,7 @@ module.exports = {
             },
             {
                 name: '• Games',
-                value: inlineCode('tictactoe')
+                value: inlineCode('tictactoe, 8ball')
             },
             {
                 name: '• Util',
