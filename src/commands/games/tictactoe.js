@@ -8,6 +8,7 @@ module.exports = {
     .addUserOption(option => option
         .setName('user')
         .setDescription('The user to play with.')
+        .setRequired(true)
     ),
 
     /**
