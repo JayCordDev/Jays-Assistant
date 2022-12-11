@@ -15,9 +15,13 @@ module.exports = {
      * @param {ChatInputCommandInteraction} interaction
      */
     async execute(interaction, client) {
-        const { options } = interaction;
+        const { options, user } = interaction;
 
-        const game = new Game(options.getUser('user'), interaction.user, interaction);
+        const Target = options.getUser('user')
+
+        if (!Target.bot) return interaction.reply({ content: 'Cannot play against bots.', ephemeral: true });
+
+        const game = new Game(Target, user, interaction);
         await game.run();
     },
 };
