@@ -21,7 +21,7 @@ module.exports = {
             },
             {
                 name: '• Moderation',
-                value: inlineCode('ban, purge, kick, mod, mute, nick, slowmode, unban, warn')
+                value: inlineCode('ban, purge, kick, lock, unlock, mod, mute, nick, slowmode, unban, warn')
             },
             {
                 name: '• Misc',
