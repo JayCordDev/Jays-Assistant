@@ -8,6 +8,7 @@ module.exports = {
         .addStringOption(option => option
             .setName('question')
             .setDescription('The question you would like to ask the 8ball.')
+            .setRequired(true)
         ),
     /**
      * @param {ChatInputCommandInteraction} interaction
