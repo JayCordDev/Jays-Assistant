@@ -17,10 +17,6 @@ module.exports = {
             .setDescription('The ban reason.')
             .setMaxLength(1000)
             .setMinLength(1)
-    )
-    .addBooleanOption(option => option
-            .setName('force')
-            .setDescription('Force this ban (Only if this user is not in the server).')
     ),
     /**
      * @param {ChatInputCommandInteraction} interaction
@@ -30,7 +26,6 @@ module.exports = {
 
         const TargetUser = options.getUser('target') || user;
         const TargetMember = await guild.members.fetch(TargetUser.id);
-        const ForceBan = options.getBoolean('force');
         const BanReason = options.getString('reason') || 'No reason provided.';
 
         const LogChannel = guild.channels.cache.get('946156432057860103');
@@ -62,11 +57,6 @@ module.exports = {
             await TargetMember.ban({ deleteMessageSeconds: 86400, reason: BanReason }).then(() => {
                 const BanSuccessEmbed = new EmbedBuilder().setColor('Green').setDescription(`${Success_Emoji} | <@${TargetUser.id}> has been banned | \`${CaseId}\``)
                 interaction.reply({ embeds: [BanSuccessEmbed] });
-            });
-        } else {
-            await guild.bans.create(TargetUser).then(() => {
-                const ForceBanSuccessEmbed = new EmbedBuilder().setColor('Green').setDescription(`${Success_Emoji} | <@${TargetUser.id}> has been **force** banned | \`${CaseId}\``)
-                interaction.reply({ embeds: [ForceBanSuccessEmbed] });
             });
         };
 
