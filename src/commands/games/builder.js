@@ -10,7 +10,6 @@ class Player {
 
 class Game {
     constructor(user1, user2, interaction) {
-        this._accept = false;
         this._player1 = new Player(user1, "❌");
         this._player2 = new Player(user2, "⭕");
         this._currentPlayer = Math.random() < 0.5 ? this._player1 : this._player2;
@@ -178,8 +177,7 @@ class Game {
         const collector = resp.createMessageComponentCollector();
 
         collector.on('collect', async i => {
-            if (i.isButton())
-                this.updateGrid(i, this._currentPlayer);
+            if (i.isButton()) this.updateGrid(i, this._currentPlayer);
         });        
     };
 
