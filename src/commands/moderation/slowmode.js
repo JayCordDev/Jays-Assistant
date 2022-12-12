@@ -36,11 +36,11 @@ module.exports = {
                     Total += magnitude;
                     break;
                 default:
-                    return interaction.reply("Error: Unrecognized unit " + unit);
+                    return interaction.reply({ content: `Invalid unit: ${unit}`, ephemeral: true });
             }
         }); 
 
         channel.setRateLimitPerUser(Total);
-        return interaction.reply({ content: `Slowmode has been set to \`${SlowmodeDuration}\`` });
+        interaction.reply({ content: `Slowmode has been set to \`${SlowmodeDuration}\`` });
     },
 };
