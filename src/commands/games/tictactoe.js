@@ -19,7 +19,7 @@ module.exports = {
 
         const Target = options.getUser('user')
 
-        if (Target.bot) return interaction.reply({ content: 'Cannot play against bots.', ephemeral: true });
+        if (Target.bot) return await interaction.reply({ content: 'Cannot play against bots.', ephemeral: true });
 
         const game = new Game(Target, user, interaction);
         await game.run();

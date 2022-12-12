@@ -87,16 +87,36 @@ class Game {
 					.setLabel(' ')
 					.setStyle(ButtonStyle.Secondary),
 			);
+
+        this._row4 = new ActionRowBuilder()
+            .addComponents(
+                new ButtonBuilder()
+                    .setCustomId('end')
+                    .setLabel('End Game')
+                    .setStyle(ButtonStyle.Danger)
+            );
     }
 
     async updateGrid(interaction, player) {
+
+        // Check if the end game button is clicked.
+        if(interaction.customId == 'end') {
+
+            if(!(interaction.user.id === this._player1.user.id || interaction.user.id === this._player2.user.id)) {
+                await interaction.reply({ content: 'Get lost idiot. You are not even playing.', ephemeral: true});;
+                return;
+            }
+            await interaction.update({ embeds: [], content: 'Game has been ended', components: [] });
+            return;
+        }
+
         // Check if the player tries to play during the other player's turn.
         if(interaction.user.id !== player.user.id) {
             await interaction.reply({ content: "It's not your turn!", ephemeral: true });
             return;
         };
 
-        // Retrieve the position from the custom id of the button(customd id of primary1 will be 1).
+        // Retrieve the position from the custom id of the button(position from custom id of primary1 will be 1).
         const position = parseInt(interaction.customId.charAt(interaction.customId.length - 1));
 
         if(!this.isMoveValid(position)) {
@@ -131,8 +151,15 @@ class Game {
 
         // Check if the winner has been declared.
         if(this._winner != null) {
+            if(this._winner == "draw") {
+                this._embed.setDescription("It's a draw");
+                this.makeBoardUnclickable();
+                await interaction.update({ embeds: [this._embed], content: '', components: [this._row1, this._row2, this._row3]});
+                return;
+            }
             this._embed.setDescription(`${this._currentPlayer.user} wins! 🎉`);
-            await interaction.update({ embeds: [this._embed], content: '', });
+            this.makeBoardUnclickable();
+            await interaction.update({ embeds: [this._embed], content: '', components: [this._row1, this._row2, this._row3]});
             return;
         };
 
@@ -140,22 +167,23 @@ class Game {
         this._currentPlayer = this.nextPlayer(this._currentPlayer);
 
         this._embed.setDescription(`${this._currentPlayer.sign} ${this._currentPlayer.user} Your turn!`);
-        await interaction.update({ embeds: [this._embed], content: '', components: [this._row1, this._row2, this._row3] });
+        await interaction.update({ embeds: [this._embed], content: '', components: [this._row1, this._row2, this._row3, this._row4] });
     };
 
     async run() {
+
         const resp = await this._interaction.reply({ embeds: [this._embed], content: `Starting the game for <@${this._player1.user.id}> and <@${this._player2.user.id}>`, components: [this._row1, this._row2, this._row3] });
 
         const collector = resp.createMessageComponentCollector();
 
         collector.on('collect', async i => {
             if (i.isButton()) this.updateGrid(i, this._currentPlayer);
-        });
-            
+        });        
     };
 
-    checkMatches() {
-        // Check horizontally
+    async checkMatches() {
+
+        // Check horizontally.
         for(let row = 0; row < 3; row++) {
             const v1 = this._cells[this.posToIndex(row, 0)];
             const v2 = this._cells[this.posToIndex(row, 1)];
@@ -166,7 +194,7 @@ class Game {
 
         };
 
-        // Check vertically
+        // Check vertically.
         for(let column = 0; column < 3; column++) {
             const v1 = this._cells[this.posToIndex(0, column)];
             const v2 = this._cells[this.posToIndex(1, column)];
@@ -177,7 +205,7 @@ class Game {
 
         };
 
-        // Check diagonally
+        // Check diagonally.
         const middle = this._cells[this.posToIndex(1, 1)];
         const topLeft = this._cells[this.posToIndex(0, 0)];
         const topRight = this._cells[this.posToIndex(0, 2)];
@@ -189,6 +217,10 @@ class Game {
 
         if (this.validEquals(topRight, middle) && this.validEquals(middle, bottomLeft))
             this._winner = topRight;
+
+        // Check for draw condition.
+        if(this.isBoardFull() && this._winner == null)
+            this._winner = "draw";
 
     };
 
@@ -210,6 +242,24 @@ class Game {
     validEquals(cell1, cell2) {
         return ( cell1 !== 0 && cell1 == cell2 )
     };
+
+    isBoardFull() {
+        return this._cells.every(c => c !== 0);
+    }
+
+    makeBoardUnclickable() {
+        this._row1.components.forEach(c => {
+            c.setDisabled(true);
+        });
+        
+        this._row2.components.forEach(c => {
+            c.setDisabled(true);
+        });
+
+        this._row3.components.forEach(c => {
+            c.setDisabled(true);
+        });
+    }
 };
 
 module.exports.Game = Game;
