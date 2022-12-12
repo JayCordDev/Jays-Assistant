@@ -7,7 +7,7 @@ module.exports = {
      * @param {Client} client
      */
     async execute(interaction, client) {
-        if (!interaction.isChatInputCommand()) {
+        if (interaction.isCommand()) {
             const cmd = client.commands.get(interaction.commandName);
             if (!cmd) return interaction.reply({ content: 'Requested command not found.', ephemeral: true });
 
