@@ -20,6 +20,7 @@ module.exports = {
                 
         let SplitDuration = SlowmodeDuration.split(' ');
         let Total = 0;
+        let error = false;
 
         SplitDuration.forEach(e => {
             const magnitude = parseInt(e.slice(0, -1));
@@ -36,11 +37,14 @@ module.exports = {
                     Total += magnitude;
                     break;
                 default:
-                    return interaction.reply({ content: `Invalid unit: ${unit}`, ephemeral: true });
+                    error = true;
             }
         }); 
-
-        channel.setRateLimitPerUser(Total);
-        interaction.reply({ content: `Slowmode has been set to \`${SlowmodeDuration}\`` });
+        if(!error) {
+            channel.setRateLimitPerUser(Total);
+            await interaction.reply( `Slowmode has been set to \`${SlowmodeDuration}\``);
+        } else {
+            await interaction.reply(`Error: Cannot set the rate limit to \`${SlowmodeDuration}\``)
+        }
     },
 };
