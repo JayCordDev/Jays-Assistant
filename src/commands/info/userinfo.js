@@ -6,8 +6,8 @@ module.exports = {
     .setName('userinfo')
     .setDescription('Gets information on a user.')
     .addUserOption(option => option
-        .setName('target')
-        .setDescription('The user whose info you want to fetch.')
+            .setName('target')
+            .setDescription('The user whose info you want to fetch.')
     ),
     /**
      * @param {ChatInputCommandInteraction} interaction
