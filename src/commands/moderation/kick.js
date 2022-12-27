@@ -41,7 +41,7 @@ module.exports = {
         .setFields(
             {
                 name: 'Reason',
-                value: `${KickReason}`
+                value: `> ${KickReason}`
             }
         )
         .setFooter({ text: `Punishment ID: ${CaseId}` })

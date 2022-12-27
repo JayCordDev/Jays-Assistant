@@ -54,7 +54,11 @@ module.exports = {
         .setFields(
             {
                 name: 'Reason',
-                value: `${MuteReason}`
+                value: `> ${MuteReason}`
+            },
+            {
+                name: 'Duration',
+                value: `<t:${parseInt(TargetMember.communicationDisabledUntilTimestamp / 1000)}:R>`
             }
         )
         .setFooter({ text: `Punishment ID: ${CaseId}` })

@@ -41,11 +41,11 @@ module.exports = {
         .setFields(
             {
                 name: 'Reason',
-                value: `${BanReason}`
+                value: `> ${BanReason}`
             },
             {
                 name: 'Appeal',
-                value: 'https://forms.gle/2oweFFCMoDnY1Y8DA'
+                value: '> https://forms.gle/2oweFFCMoDnY1Y8DA'
             }
         )
         .setFooter({ text: `Punishment ID: ${CaseId}` })
@@ -53,17 +53,15 @@ module.exports = {
 
         await TargetUser.send({ embeds: [DirectEmbed] }).catch((console.error));
 
-        if (ForceBan) {
-            await TargetMember.ban({ deleteMessageSeconds: 86400, reason: BanReason }).then(() => {
-                const BanSuccessEmbed = new EmbedBuilder().setColor('Green').setDescription(`${Success_Emoji} | <@${TargetUser.id}> has been banned | \`${CaseId}\``)
-                interaction.reply({ embeds: [BanSuccessEmbed] });
-            });
-        };
+        await TargetMember.ban({ deleteMessageSeconds: 86400, reason: BanReason }).then(() => {
+            const BanSuccessEmbed = new EmbedBuilder().setColor('Green').setDescription(`${Success_Emoji} | <@${TargetUser.id}> has been banned | \`${CaseId}\``)
+            interaction.reply({ embeds: [BanSuccessEmbed] });
+        });
 
         const LogEmbed = new EmbedBuilder()
         .setColor('Red')
         .setAuthor({ name: `${user.tag}`, iconURL: `${user.displayAvatarURL()}` })
-        .setDescription(`**Member**: <@${TargetUser.id}> | \`${TargetUser.id}\`\n**Type**: Ban\n**Force?** ${ForceBan}\n**Reason**: ${BanReason}`)
+        .setDescription(`**Member**: <@${TargetUser.id}> | \`${TargetUser.id}\`\n**Type**: Ban\n**Reason**: ${BanReason}`)
         .setFooter({ text: `Punishment ID: ${CaseId}` })
         .setTimestamp()
 
