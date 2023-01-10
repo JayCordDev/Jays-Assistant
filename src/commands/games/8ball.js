@@ -14,7 +14,8 @@ module.exports = {
      * @param {ChatInputCommandInteraction} interaction
      */
     async execute(interaction, client) {
-        const question = interaction.options.getString("question")
+        const question = interaction.options.getString("question");
+        
         const answers = [
             'It is certain.',
             'It is decidedly so.',
@@ -49,6 +50,7 @@ module.exports = {
             'Good Luck',
         ];
         let index = (Math.floor(Math.random() * Math.floor(answers.length)));
+        
         const embed = new EmbedBuilder()
         .setTitle("The Magic 8ball")
         .setColor(Default_Embed_Colour)
