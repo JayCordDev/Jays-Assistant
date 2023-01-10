@@ -1,4 +1,4 @@
-const { ChatInputCommandInteraction, SlashCommandBuilder, Client, EmbedBuilder, inlineCode, quote } = require('discord.js');
+const { ChatInputCommandInteraction, SlashCommandBuilder, Client, EmbedBuilder, inlineCode } = require('discord.js');
 const { Default_Embed_Colour } = require('../../config.json');
 
 module.exports = {
