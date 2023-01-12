@@ -12,7 +12,7 @@ First off, thanks for taking some time into contributing for Jay's Assistant! Th
 
 ## Rewards
 
-All contributors will get a fancy role on JayCord named ` Github Contributor ` to show off (not flex literally but you get the idea).
+All contributors will get a fancy role on JayCord to show off (not flex literally but you get the idea).
 
 Members with this role get exclusive access to development channels and a bunch more.
 
